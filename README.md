@@ -80,6 +80,7 @@ smartfutures-symfony-assessment/
 ### Quick Setup (One Command)
 To quickly set up the project, run:
 ```bash
+[ -f .env ] || cp .env.example .env && sed -i "s/GENERATE_YOUR_SECRET_HERE/$(php -r 'echo bin2hex(random_bytes(16));')/" .env
 composer install && composer dump-autoload -o && php bin/console doctrine:database:create && php bin/console doctrine:migrations:migrate && php bin/console doctrine:fixtures:load && symfony serve
 ```
 
@@ -115,7 +116,7 @@ composer install && composer dump-autoload -o && php bin/console doctrine:databa
    symfony serve
    ```
 8. Access the GraphQL endpoint at:
-   ```
+   ```bash
    http://localhost:8000/graphql
    ```
 
@@ -140,3 +141,4 @@ php bin/console doctrine:fixtures:load
 ```bash
 php bin/console debug:config api_platform
 ```
+
