@@ -153,3 +153,35 @@ php bin/console doctrine:fixtures:load
 php bin/console debug:config api_platform
 ```
 
+### Example GraphQL Query
+To retrieve customers, their purchases, related books, and authors, use the following GraphQL query:
+```graphql
+query {
+  customers {
+    edges {
+      node {
+        firstName
+        lastName
+        purchases {
+          edges {
+            node {
+              id
+              purchaseDate
+              book {
+                id
+                title
+                summary
+                author {
+                  firstName
+                  lastName
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
