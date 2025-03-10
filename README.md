@@ -75,7 +75,7 @@ smartfutures-symfony-assessment/
 - **PHP 8.0+**
 - **Composer**
 - **Symfony CLI** (optional, recommended for running the project locally)
-- **MySQL or PostgreSQL** (configured via `.env` file)
+- **Sqlite** (configured via `.env` file)
 
 ### Step-by-Step Setup
 1. Clone the repository:
