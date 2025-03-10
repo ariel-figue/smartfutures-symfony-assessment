@@ -77,13 +77,6 @@ smartfutures-symfony-assessment/
 - **Symfony CLI** (optional, recommended for running the project locally)
 - **MySQL or PostgreSQL** (configured via `.env` file)
 
-### Quick Setup (One Command)
-To quickly set up the project, run:
-```bash
-[ -f .env ] || cp .env.example .env && sed -i "s/GENERATE_YOUR_SECRET_HERE/$(php -r 'echo bin2hex(random_bytes(16));')/" .env
-composer install && composer dump-autoload -o && php bin/console doctrine:database:create && php bin/console doctrine:migrations:migrate && php bin/console doctrine:fixtures:load && symfony serve
-```
-
 ### Step-by-Step Setup
 1. Clone the repository:
    ```bash
@@ -94,34 +87,48 @@ composer install && composer dump-autoload -o && php bin/console doctrine:databa
    ```bash
    [ -f .env ] || cp .env.example .env && sed -i "s/GENERATE_YOUR_SECRET_HERE/$(php -r 'echo bin2hex(random_bytes(16));')/" .env
    ```
-3. Install dependencies:
+3. Install dependencies, optimize autoloading, create and migrate the database, load sample data, and start the Symfony server in a single command:
+   ```bash
+   composer install && composer dump-autoload -o && php bin/console doctrine:database:create && php bin/console doctrine:migrations:migrate && php bin/console doctrine:fixtures:load && symfony serve
+   ```
+
+### Alternative Step-by-Step Setup
+1. Install dependencies:
    ```bash
    composer install
    ```
-4. Optimize autoloading:
+2. Optimize autoloading:
    ```bash
    composer dump-autoload -o
    ```
-5. Configure the database connection in the `.env` file:
+3. Ensure the database connection is set to SQLite in the `.env` file:
+   ```bash
+   DATABASE_URL="sqlite:///%kernel.project_dir%/var/data.db"
    ```
-   DATABASE_URL="mysql://username:password@127.0.0.1:3306/database_name"
-   ```
-6. Create and migrate the database:
+4. Create and migrate the database:
    ```bash
    php bin/console doctrine:database:create
    php bin/console doctrine:migrations:migrate
    ```
-7. Load sample data:
+5. Load sample data to populate the database:
    ```bash
    php bin/console doctrine:fixtures:load
    ```
-8. Start the Symfony server:
+6. Start the Symfony server:
    ```bash
    symfony serve
    ```
-9. Access the GraphQL endpoint at:
+7. Access the GraphQL endpoint at:
    ```bash
    http://localhost:8000/graphql
+   ```
+8. Verify data exists in the database:
+   ```bash
+   php bin/console doctrine:query:sql "SELECT * FROM customer;"
+   ```
+   If no data is returned, reload fixtures:
+   ```bash
+   php bin/console doctrine:fixtures:load
    ```
 
 ## Available Commands
