@@ -90,32 +90,36 @@ composer install && composer dump-autoload -o && php bin/console doctrine:databa
    git clone https://github.com/smartfutures-symfony-assessment.git
    cd smartfutures-symfony-assessment
    ```
-2. Install dependencies:
+2. Ensure the `.env` file is set up:
+   ```bash
+   [ -f .env ] || cp .env.example .env && sed -i "s/GENERATE_YOUR_SECRET_HERE/$(php -r 'echo bin2hex(random_bytes(16));')/" .env
+   ```
+3. Install dependencies:
    ```bash
    composer install
    ```
-3. Optimize autoloading:
+4. Optimize autoloading:
    ```bash
    composer dump-autoload -o
    ```
-4. Configure the database connection in the `.env` file:
+5. Configure the database connection in the `.env` file:
    ```
    DATABASE_URL="mysql://username:password@127.0.0.1:3306/database_name"
    ```
-5. Create and migrate the database:
+6. Create and migrate the database:
    ```bash
    php bin/console doctrine:database:create
    php bin/console doctrine:migrations:migrate
    ```
-6. Load sample data:
+7. Load sample data:
    ```bash
    php bin/console doctrine:fixtures:load
    ```
-7. Start the Symfony server:
+8. Start the Symfony server:
    ```bash
    symfony serve
    ```
-8. Access the GraphQL endpoint at:
+9. Access the GraphQL endpoint at:
    ```bash
    http://localhost:8000/graphql
    ```
